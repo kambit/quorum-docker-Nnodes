@@ -105,7 +105,7 @@ do
     # Add the account to the genesis block so it has some Ether at start-up
     sep=`[[ $n < $nnodes ]] && echo ","`
     cat >> genesis.json <<EOF
-    "${account}": {
+    "0x${account}": {
       "balance": "1000000000000000000000000000"
     }${sep}
 EOF
