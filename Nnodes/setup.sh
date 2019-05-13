@@ -31,7 +31,7 @@ image=quorum
 
 nnodes=${#ips[@]}
 
-echo '[1] '$nnodes' nodes.'
+#echo '[1] '$nnodes' nodes.'
 
 if [[ $nnodes < 02 ]]
 then
@@ -49,7 +49,7 @@ pwd=`pwd`
 
 echo '[1] Configuring for '$nnodes' nodes.'
 
-exit 1
+#exit 1
 
 n=1
 for ip in ${ips[*]}
