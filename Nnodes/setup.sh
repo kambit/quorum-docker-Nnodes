@@ -76,7 +76,7 @@ do
     enode=`docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/bootnode -genkey /qdata/dd/nodekey -writeaddress`
 
     # Add the enode to static-nodes.json
-    sep=`[[ $n < $nnodes ]] && echo ","`
+    sep=`[[ $n !=  $nnodes ]] && echo ","`
     echo '  "enode://'$enode'@'$ip':30303?discport=0"'$sep >> static-nodes.json
 
     let n++
