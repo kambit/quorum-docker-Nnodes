@@ -22,7 +22,7 @@
 
 # One Docker container will be configured for each IP address in $ips
 subnet="172.13.0.0/16"
-ips=("172.13.0.2" "172.13.0.3" "172.13.0.4" "172.13.0.5" "172.13.0.6" "172.13.0.7" "172.13.0.8" "172.13.0.9" "172.13.0.10" "172.13.0.11" "172.13.0.12" "172.13.0.13" "172.13.0.14")
+ips=("172.13.0.1" "172.13.0.2" "172.13.0.3" "172.13.0.4" "172.13.0.5" "172.13.0.6" "172.13.0.7" "172.13.0.8" "172.13.0.9" "172.13.0.10" "172.13.0.11" "172.13.0.12" "172.13.0.13" "172.13.0.14")
 
 # Docker image name
 image=quorum
@@ -31,7 +31,9 @@ image=quorum
 
 nnodes=${#ips[@]}
 
-if [[ $nnodes < 2 ]]
+echo '[1] '$nnodes' nodes.'
+
+if [[ $nnodes < 02 ]]
 then
     echo "ERROR: There must be more than one node IP address."
     exit 1
@@ -46,6 +48,8 @@ pwd=`pwd`
 #### Create directories for each node's configuration ##################
 
 echo '[1] Configuring for '$nnodes' nodes.'
+
+exit 1
 
 n=1
 for ip in ${ips[*]}
