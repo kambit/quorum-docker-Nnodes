@@ -103,7 +103,7 @@ do
     account=`docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/geth --datadir=/qdata/dd --password /qdata/passwords.txt account new | cut -c 11-50`
 
     # Add the account to the genesis block so it has some Ether at start-up
-    sep=`[[ $n < $nnodes ]] && echo ","`
+    sep=`[[ $n != $nnodes ]] && echo ","`
     cat >> genesis.json <<EOF
     "0x${account}": {
       "balance": "1000000000000000000000000000"
