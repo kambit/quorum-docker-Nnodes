@@ -86,7 +86,7 @@ do
 
     # Add the enode to static-nodes.json
     sep=`[[ $n !=  $nnodes ]] && echo ","`
-    echo '  "enode://'$enode'@'$ip':30303?discport=0"'$sep >> static-nodes.json
+    echo '  "enode://'$enode'@'$ip':30303?discport=0&raftport=50400"'$sep >> static-nodes.json
 
     let n++
 done
