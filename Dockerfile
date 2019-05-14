@@ -15,15 +15,15 @@ RUN apt-get update && \
             wrk \
             zlib1g-dev
 
-RUN wget -q https://github.com/jpmorganchase/constellation/releases/download/v0.0.1-alpha/ubuntu1604.zip && \
-    unzip ubuntu1604.zip && \
-    cp ubuntu1604/constellation-node /usr/local/bin && \
+RUN wget -q https://github.com/jpmorganchase/constellation/releases/download/v0.3.2/constellation-0.3.2-ubuntu1604.tar.xz && \
+    tar -xf constellation-0.3.2-ubuntu1604.tar.xz && \
+    cp constellation-0.3.2-ubuntu1604/constellation-node /usr/local/bin && \
     chmod 0755 /usr/local/bin/constellation-node && \
-    cp ubuntu1604/constellation-enclave-keygen /usr/local/bin/ && \
+    cp constellation-0.3.2-ubuntu1604/constellation-enclave-keygen /usr/local/bin/ && \
     chmod 0755 /usr/local/bin/constellation-enclave-keygen && \
-    rm -rf ubuntu1604.zip ubuntu1604
+    rm -rf constellation-0.3.2-ubuntu1604.tar.xz constellation-0.3.2-ubuntu1604
 
-ENV GOREL go1.7.3.linux-amd64.tar.gz
+ENV GOREL go1.12.5.linux-amd64.tar.gz
 ENV PATH $PATH:/usr/local/go/bin
 
 RUN wget -q https://storage.googleapis.com/golang/$GOREL && \
@@ -33,7 +33,7 @@ RUN wget -q https://storage.googleapis.com/golang/$GOREL && \
 
 RUN git clone https://github.com/jpmorganchase/quorum.git && \
     cd quorum && \
-    git checkout tags/v1.2.0 && \
+    git checkout tags/v2.2.3 && \
     make all && \
     cp build/bin/geth /usr/local/bin && \
     cp build/bin/bootnode /usr/local/bin && \
