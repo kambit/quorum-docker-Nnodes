@@ -82,9 +82,10 @@ do
     qd=qdata_$n
 
     # Generate the node's Enode and key
-    enode=`docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/bootnode -genkey /qdata/dd/nodekey -writeaddress`
+    enode=`docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/bootnode -genkey /qdata/dd/nodekey -writeaddress && cat /qdata/dd/nodekey`
 
     # Add the enode to static-nodes.json
+    echo ' '$enode'@'$ip' '
     sep=`[[ $n !=  $nnodes ]] && echo ","`
     echo '  "enode://'$enode'@'$ip':30303?discport=0&raftport=50400"'$sep >> static-nodes.json
 
