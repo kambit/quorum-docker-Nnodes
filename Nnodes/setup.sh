@@ -175,7 +175,8 @@ do
     cp static-nodes.json $qd/dd/static-nodes.json
 
     # Generate Quorum-related keys (used by Constellation)
-    docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-enclave-keygen /qdata/keys/tm /qdata/keys/tma < /dev/null > /dev/null
+    docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tm < /dev/null > /dev/null
+    docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tma < /dev/null > /dev/null
     echo 'Node '$n' public key: '`cat $qd/keys/tm.pub`
 
     cp templates/start-node.sh $qd/start-node.sh
