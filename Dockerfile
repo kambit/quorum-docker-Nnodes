@@ -52,6 +52,7 @@ RUN apt-get update && \
         libdb-dev \
         libsodium-dev \
         libtinfo-dev \
+        libleveldb-dev \
         solc && \
     rm -rf /var/lib/apt/lists/*
 
