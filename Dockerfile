@@ -53,6 +53,7 @@ RUN apt-get update && \
         libsodium-dev \
         libtinfo-dev \
         libleveldb-dev \
+        netbase \
         solc && \
     rm -rf /var/lib/apt/lists/*
 
