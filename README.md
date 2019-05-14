@@ -1,39 +1,53 @@
-# quorum-docker-Nnodes
+# Setup N Quorum Nodes
 
 Run a bunch of Quorum nodes, each in a separate Docker container.
 
 This is simply a learning exercise for configuring Quorum networks. Probably best not used in a production environment.
 
-In progress:
+## Quickstart
 
-  * ~~Remove the need to have Geth/Bootnode/Constellation installed on the host for the set-up process: use the Docker image instead, which already contains them.~~
-  * Investigate adding Quorum network manager.
-  * Further work on Docker image size.
-  * Tidy the whole thing up.
+```
+git clone https://github.com/coolcode/quorum-docker-Nnodes
+cd quorum-docker-Nnodes
+sudo docker build -t quorum .
+cd Nnodes
+sudo ./setup.sh
+sudo docker-compose up -d
+```
 
-See the *README* in the *Nnodes* directory for details of the set up process.
+DONE!
+
+## Test
+
+```
+sudo docker exec -it nnodes_node_1_1 geth attach /qdata/dd/geth.ipc
+
+> admin.peers.length
+```
+
+# Docs
 
 ## Building
 
 In the top level directory:
 
     docker build -t quorum .
-    
+
 The first time will take a while, but after some caching it gets much quicker for any minor updates.
 
-I've got the size of the final image down to ~~391MB~~ 308MB from over 890MB. It's likely possible to improve much further on that.  Alpine Linux is a candidate minimal base image, but there are challenges with the Haskell dependencies; there's an [example here](https://github.com/jpmorganchase/constellation/blob/master/build-linux-static.dockerfile).
+I've got the size of the final image down to ~~391MB~~ 308MB from over 890MB. It's likely possible to improve much further on that. Alpine Linux is a candidate minimal base image, but there are challenges with the Haskell dependencies; there's an [example here](https://github.com/jpmorganchase/constellation/blob/master/build-linux-static.dockerfile).
 
 ## Running
 
-Change to the *Nnodes/* directory. Edit the `ips` variable in *setup.sh* to list two or more IP addresses on the Docker network that will host nodes:
+Change to the _Nnodes/_ directory. Edit the `number_of_node` variable in _setup.sh_ on the Docker network that will host nodes:
 
-    ips=("172.13.0.2" "172.13.0.3" "172.13.0.4")
+    number_of_node=14
 
 The IP addresses are needed for Constellation to work. Now run,
 
     ./setup.sh
     docker-compose up -d
-    
+
 This will set up as many Quorum nodes as IP addresses you supplied, each in a separate container, on a Docker network, all hopefully talking to each other.
 
     Nnodes> docker ps
@@ -45,16 +59,16 @@ This will set up as many Quorum nodes as IP addresses you supplied, each in a se
 ## Stopping
 
     docker-compose down
-  
+
 ## Playing
 
 ### Accessing the Geth console
 
-If you have Geth installed on the host machine you can do the following from the *Nnodes* directory to attach to Node 1's console.
+If you have Geth installed on the host machine you can do the following from the _Nnodes_ directory to attach to Node 1's console.
 
     geth attach qdata_1/dd/geth.ipc
 
-Otherwise, the following will achieve the same thing, attaching via the Geth instance in the container.  If you do this, you'll have to copy transaction scripts used below into the *qdata_N* directories manually.
+Otherwise, the following will achieve the same thing, attaching via the Geth instance in the container. If you do this, you'll have to copy transaction scripts used below into the _qdata_N_ directories manually.
 
     docker exec -it Nnodes_node_1_1 geth attach /qdata/dd/geth.ipc
 
@@ -68,7 +82,7 @@ We will demo the following, from Node 1's console.
 
 3. Send a private transaction to update the contract state with node 2.
 
-This is based on using the provided example *setup.sh* file as-is (three nodes).
+This is based on using the provided example _setup.sh_ file as-is (three nodes).
 
 #### Node 1 geth console
 
@@ -131,12 +145,11 @@ So, Node 2 is able to see both contracts and the private transaction. Node 3 can
 
 ## Notes
 
-The RPC port for each container is mapped to *localhost* starting from port 22001. So, to see the peers connected to Node 2, you can do either of the following and get the same result. Change it in *setup.sh* if you don't like it.
+The RPC port for each container is mapped to _localhost_ starting from port 22001. So, to see the peers connected to Node 2, you can do either of the following and get the same result. Change it in _setup.sh_ if you don't like it.
 
     curl -X POST --data '{"jsonrpc":"2.0","method":"admin_peers","id":1}' 172.13.0.3:8545
     curl -X POST --data '{"jsonrpc":"2.0","method":"admin_peers","id":1}' localhost:22002
 
-You can see the log files for the nodes in *qdata_N/logs/geth.log* and *qdata_N/logs/constellation.log*.  This is useful when things go wrong!
+You can see the log files for the nodes in _qdata_N/logs/geth.log_ and _qdata_N/logs/constellation.log_. This is useful when things go wrong!
 
 This example uses only the Raft consensus mechanism.
-
