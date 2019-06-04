@@ -183,6 +183,7 @@ do
 
     if [ $n -eq 1 ]; then
       cp templates/start-node-permission.sh $qd/start-node.sh
+      echo 'Node '$n': permissioned' 
     else
       cp templates/start-node.sh $qd/start-node.sh
     fi
@@ -190,6 +191,12 @@ do
 
     let n++
 done
+
+for ip in ${ips[*]}
+do
+  echo '\"'`cat $qd/keys/tm.pub`'\",'
+done
+
 rm -rf genesis.json static-nodes.json
 
 
