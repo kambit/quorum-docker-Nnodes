@@ -192,10 +192,12 @@ do
     let n++
 done
 
+n=1
 for ip in ${ips[*]}
 do
   qd=qdata_$n
   echo '"'`cat $qd/keys/tm.pub`'",'
+  let n++
 done
 
 rm -rf genesis.json static-nodes.json
