@@ -194,7 +194,8 @@ done
 
 for ip in ${ips[*]}
 do
-  echo '\"'`cat $qd/keys/tm.pub`'\",'
+  qd=qdata_$n
+  echo '"'`cat $qd/keys/tm.pub`'",'
 done
 
 rm -rf genesis.json static-nodes.json
