@@ -25,9 +25,9 @@ DOWN=true
 while $DOWN; do
   sleep 1
   DOWN=false
-	if [ ! -S "/qdata/tm.ipc" ]; then
+    if [ ! -S "/qdata/tm.ipc" ]; then
     DOWN=true
-	fi
+    fi
 done
 
 echo "[*] Starting node"
