@@ -1,6 +1,5 @@
 #/bin/bash
-sudo docker kill $(sudo docker ps -qa)
-sudo docker rm $(sudo docker ps -qa)
+docker rm -f $(docker ps -a | grep “quorum” | awk ‘{print $1}’)
 sudo ./setup.sh
 sudo docker-compose up -d
 sudo docker ps -a
