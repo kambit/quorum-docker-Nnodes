@@ -138,7 +138,7 @@ cat >> genesis.json <<EOF
   },
   "difficulty": "0x0",
   "extraData": "0x",
-  "gasLimit": "0x2FEFD800",
+  "gasLimit": "0xFFFFFFFFFFFFFFFF",
   "mixhash": "0x00000000000000000000000000000000000000647572616c65787365646c6578",
   "nonce": "0x0",
   "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
