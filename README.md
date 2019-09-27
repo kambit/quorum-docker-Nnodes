@@ -7,15 +7,23 @@ This is simply a learning exercise for configuring Quorum networks. Probably bes
 ## Quickstart
 
 ```
-git clone https://github.com/coolcode/quorum-docker-Nnodes
-cd quorum-docker-Nnodes
-sudo docker build -t quorum .
-cd Nnodes
+git clone https://github.com/kambit/quorum-docker-Nnodes.git
+cd quorum-docker-Nnodes/Nnodes
 sudo ./setup.sh
 sudo docker-compose up -d
 ```
 
 DONE!
+
+## Restart quorum
+
+```
+git clone https://github.com/kambit/quorum-docker-Nnodes.git
+cd quorum-docker-Nnodes/Nnodes
+sudo ./re-setup.sh
+```
+
+
 
 ## Test
 
@@ -88,24 +96,24 @@ This is based on using the provided example _setup.sh_ file as-is (three nodes).
 
     > var abi = [{"constant":true,"inputs":[],"name":"storedData","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"retVal","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"initVal","type":"uint256"}],"type":"constructor"}];
     undefined
-
+    
     > loadScript("contract_pub.js")
     Contract transaction send: TransactionHash: 0x0e7ff9b609c0ba3a11de9cd4f51389c29dceacbac2f91e294346df86792d8d8f waiting to be mined...
     true
     Contract mined! Address: 0x1932c48b2bf8102ba33b4a6b545c32236e342f34
     [object Object]
-
+    
     > var public = eth.contract(abi).at("0x1932c48b2bf8102ba33b4a6b545c32236e342f34")
     undefined
     > public.get()
     42
-
+    
     > loadScript("contract_pri.js")
     Contract transaction send: TransactionHash: 0xa9b969f90c1144a49b4ab4abb5e2bfebae02ab122cdc22ca9bc564a740e40bcd waiting to be mined...
     true
     Contract mined! Address: 0x1349f3e1b8d71effb47b840594ff27da7e603d17
     [object Object]
-
+    
     > var private = eth.contract(abi).at("0x1349f3e1b8d71effb47b840594ff27da7e603d17")
     undefined
     > private.get()
