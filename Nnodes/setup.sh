@@ -34,7 +34,7 @@ do
 done
 
 # Docker image name
-image=yopoo/quorum
+image=quorumengineering/quorum:2.3.0
 
 ########################################################################
 
