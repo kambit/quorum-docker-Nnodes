@@ -34,7 +34,7 @@ do
 done
 
 # Docker image name
-image=quorumengineering/quorum:2.3.0
+image=kambits/quorum2.3.0
 
 ########################################################################
 
